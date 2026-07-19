@@ -1,0 +1,192 @@
+/* tech-radar — chart-room theme. Light = chart paper, dark = night bridge. */
+:root {
+  --paper: #EEF3F4;
+  --ink: #16303E;
+  --ink-soft: #4A6273;
+  --magenta: #C2277E;
+  --shoal: #D8E2E4;      /* rules, tick strip */
+  --deep: #0E5A73;       /* secondary accent: section marks */
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0D1B24;
+    --ink: #C9D6DC;
+    --ink-soft: #7E96A3;
+    --magenta: #E876B4;
+    --shoal: #223844;
+    --deep: #5FA8BF;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+main, .masthead, .colophon { max-width: 44rem; margin-inline: auto; padding-inline: 1.25rem; }
+main { padding-block: 2.5rem 4rem; }
+
+/* ── Masthead: chart title block ─────────────────────────── */
+.masthead { padding-top: 3rem; padding-bottom: 1.25rem; }
+.brand {
+  display: inline-flex; align-items: center; gap: 0.9rem;
+  text-decoration: none; color: inherit;
+}
+.brand-text {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+.tagline {
+  margin: 0.4rem 0 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+
+/* radar scope: rings + rotating sweep */
+.scope {
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  flex: none;
+  border: 1.5px solid var(--magenta);
+  background:
+    radial-gradient(circle, var(--magenta) 7%, transparent 8%),
+    radial-gradient(circle, transparent 55%, color-mix(in srgb, var(--magenta) 45%, transparent) 56%, transparent 60%);
+  position: relative;
+  overflow: hidden;
+}
+.scope::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: conic-gradient(from 0deg, color-mix(in srgb, var(--magenta) 55%, transparent), transparent 70deg, transparent);
+  animation: sweep 6s linear infinite;
+}
+@keyframes sweep { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .scope::after { animation: none; }
+}
+
+/* ── Tick ruler: chart-border latitude ticks ─────────────── */
+.ticks {
+  max-width: 44rem; margin-inline: auto; height: 8px;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--ink-soft);
+  background:
+    repeating-linear-gradient(90deg,
+      var(--ink-soft) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(90deg,
+      var(--ink-soft) 0 1px, transparent 1px 50px);
+  background-size: 100% 4px, 100% 8px;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+}
+
+/* ── Digest header ───────────────────────────────────────── */
+.digest-head { margin-bottom: 0.5rem; }
+.digest-head h1 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 1.35rem; font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.2rem;
+}
+.window {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem; color: var(--ink-soft); margin: 0;
+}
+
+/* ── Digest body (markdown output) ───────────────────────── */
+.digest h2 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--deep);
+  margin: 2.8rem 0 0.4rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--shoal);
+}
+.digest h3 {
+  font-size: 1.15rem; font-weight: 600;
+  line-height: 1.35;
+  margin: 2rem 0 0.3rem;
+}
+.digest h3 .src {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+.digest p { margin: 0.35rem 0 0; }
+.digest a { color: var(--magenta); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.digest a:hover { text-decoration-thickness: 2px; }
+.digest p.source {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  margin-top: 0.45rem;
+}
+.digest hr { border: 0; border-top: 1px solid var(--shoal); margin: 2.8rem 0 1rem; }
+.digest hr + p, .digest .quiet {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem; color: var(--ink-soft);
+}
+.digest code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.9em;
+  background: var(--shoal);
+  padding: 0.1em 0.35em; border-radius: 3px;
+}
+
+/* ── Archive ─────────────────────────────────────────────── */
+.archive h2 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--deep);
+  margin: 3.5rem 0 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--shoal);
+}
+.archive ul { list-style: none; padding: 0; margin: 0; }
+.archive li { margin: 0.55rem 0; }
+.archive .d {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  margin-right: 0.75rem;
+}
+.archive a { color: var(--magenta); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.archive .hl { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ── Per-digest page nav ─────────────────────────────────── */
+.pagenav {
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  margin-top: 3rem;
+}
+.pagenav a { color: var(--magenta); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* ── Colophon ────────────────────────────────────────────── */
+.colophon { padding-block: 0 3rem; }
+.colophon .ticks { transform: scaleY(-1); margin: 0 0 1rem; padding-inline: 0; }
+.colophon p {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem; color: var(--ink-soft);
+}
+.colophon a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+
+@media (max-width: 480px) {
+  .brand-text { font-size: 1.15rem; letter-spacing: 0.25em; }
+  body { font-size: 1rem; }
+}

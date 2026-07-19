@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Radar — 2026-07-19</title>
+<meta name="description" content="Personal tech-update digests: GIS, data pipelines, orchestration, web stacks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='%23C2277E' stroke-width='1.5'/><circle cx='8' cy='8' r='1.5' fill='%23C2277E'/><path d='M8 8 L14 4' stroke='%23C2277E' stroke-width='1.5'/></svg>">
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="index.html">
+    <span class="scope" aria-hidden="true"></span>
+    <span class="brand-text">Tech Radar</span>
+  </a>
+  <p class="tagline">weekly bearings on the stack &amp; the GIS world</p>
+</header>
+<div class="ticks" aria-hidden="true"></div>
+<main>
+<article class="digest"><div class="digest-head"><h1>Tech digest — 2026-07-19</h1><p class="window">Window: 2026-06-19 → 2026-07-19 (first run, last 30 days)</p></div>
+<h2>Your stack</h2>
+<h3><span class="src">strawberry-graphql/strawberry</span>Strawberry GraphQL 0.320 → 0.322</h3>
+<p>0.320.0 adds GraphQL subscriptions over Server-Sent Events (opt-in, works with the FastAPI/ASGI integrations) and makes multipart subscriptions opt-in — a small breaking change if you rely on them. 0.321.0 adds schema-level exception handlers that map Python exceptions to typed GraphQL error unions, and 0.322.0 finally removes the long-deprecated <code>Extension</code> alias (import <code>SchemaExtension</code> instead).</p>
+<p class="source">📎 <a href="https://github.com/strawberry-graphql/strawberry/releases/tag/0.320.0">0.320.0 release notes</a></p>
+<h3><span class="src">stac-utils/stac-fastapi-pgstac</span>stac-fastapi-pgstac 6.3.0</h3>
+<p>Adds the Multi-Tenant Catalogs Endpoint Extension for nested catalog support — useful if you ever need per-tenant STAC catalogs. Also a new <code>neq</code> query operator, more consistent settings handling via a <code>config.Settings()</code> class, and pgstac 0.8.6 deprecated in tests. 6.3.1 quickly fixed an optional-import bug from this release, so go straight to 6.3.1.</p>
+<p class="source">📎 <a href="https://github.com/stac-utils/stac-fastapi-pgstac/releases/tag/6.3.0">6.3.0 release notes</a></p>
+<h3><span class="src">hasura/graphql-engine</span>Hasura GraphQL Engine v2.49.4</h3>
+<p>Ops-relevant patch: websocket send queues are now bounded (<code>HASURA_GRAPHQL_WEBSOCKET_QUEUE_SIZE</code>, default 100, with new eviction metrics), fixing a slow-client memory pile-up. New <code>extra_required_claims</code> JWT option enforces that tokens actually contain the configured issuer/audience — worth a look if you verify Firebase or other third-party JWTs. The long-deprecated <code>X-Hasura-Access-Key</code> header was removed.</p>
+<p class="source">📎 <a href="https://github.com/hasura/graphql-engine/releases/tag/v2.49.4">v2.49.4 release notes</a></p>
+<h3><span class="src">mapbox/mapbox-gl-js</span>Mapbox GL JS v3.26.0</h3>
+<p>Published TypeScript declarations are now self-contained, fixing builds that failed with <code>skipLibCheck: false</code>. Also improves terrain raycast accuracy for mouse events and fixes a label bug on multilinestrings. Minor breaking change: <code>transition</code>/<code>interpolated</code> flags removed from the <code>camera-projection</code> style property.</p>
+<p class="source">📎 <a href="https://github.com/mapbox/mapbox-gl-js/releases/tag/v3.26.0">v3.26.0 release notes</a></p>
+<h3><span class="src">argoproj/argo-cd</span>Argo CD v3.5.0-rc2</h3>
+<p>The 3.5 release cycle is in RC. Notable fix already in the RC: auto-sync no longer gets skipped when a newer commit arrives mid-sync with <code>manifest-generate-paths</code> — a subtle drift-causing bug worth knowing about if you use that annotation. Stable branch got v3.4.5 as a routine patch.</p>
+<p class="source">📎 <a href="https://github.com/argoproj/argo-cd/releases/tag/v3.5.0-rc2">v3.5.0-rc2 release notes</a></p>
+<h2>GIS world</h2>
+<h3><span class="src">overturemaps.org</span>Overture Maps 2026-06-17 release</h3>
+<p>June data release (schema v1.17.0) refreshed the operating status of 8.5M US places using live member signals (Meta, TomTom, Uber). Schema heads-up: the <code>categories</code> property in places is deprecated and will be <strong>removed in the September 2026 release</strong>, replaced by <code>basic_category</code> + <code>taxonomy</code> — worth checking any queries that touch Overture places data. The foundation also hit 50 members in July.</p>
+<p class="source">📎 <a href="https://docs.overturemaps.org/blog/2026/06/17/release-notes/">Release notes</a></p>
+<h3><span class="src">postgresql.org</span>PostgreSQL 19 Beta 2 + PostGIS 3.7 alpha</h3>
+<p>PG 19 Beta 2 landed July 16 with GA expected ~September; PostGIS 3.7.0alpha1 is being built against it with updated GDAL/GEOS/PROJ. Migration note for later: <code>address_standardizer</code> and <code>postgis_tiger_geocoder</code> are being split out of core PostGIS into separate extensions.</p>
+<p class="source">📎 <a href="https://www.postgresql.org/about/news/postgresql-19-beta-2-released-3350/">Beta 2 announcement</a></p>
+<h2>Worth knowing</h2>
+<h3><span class="src">microsoft/typescript</span>TypeScript 7.0</h3>
+<p>The native Go-port compiler is now the release line: 8–12x faster full builds, plus experimental parallelism flags (<code>--checkers</code>, <code>--builders</code>). Breaking defaults: <code>strict: true</code> is now the default, and AMD/UMD/SystemJS module output is gone. Expect the pnpm workspace upgrade to need some <code>tsconfig</code> attention.</p>
+<p class="source">📎 <a href="https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/">Announcing TypeScript 7.0</a></p>
+<h3><span class="src">npm</span>npm 12 blocks postinstall scripts by default</h3>
+<p>Starting this month, npm v12 no longer runs package <code>postinstall</code> scripts by default — a big supply-chain-security shift after last year's worm incidents. pnpm has behaved this way since v10, so pnpm workspaces are unaffected, but CI images mixing npm could break.</p>
+<p class="source">📎 <a href="https://blog.logrocket.com/frontend-wrapped-h1-2026-the-nine-biggest-storylines">LogRocket: Frontend Wrapped H1 2026</a></p>
+<h3><span class="src">TC39 / IETF</span>ES2026 approved; HTTP gets a QUERY method</h3>
+<p>Ecma formally approved ES2026, and the HTTP QUERY method (a safe, cacheable GET-with-body) is moving forward — genuinely useful someday for the kind of large geometry filters that currently get squeezed into POST bodies against OGC feature APIs.</p>
+<p class="source">📎 <a href="https://thisweekinreact.com/newsletter/289">This Week in React #289</a></p>
+<hr />
+<p><em>Quiet this window: DuckDB, GDAL, TiTiler, tipg, pgstac (no releases); Prefect shipped only nightlies and integration point-releases. All 16 watched feeds fetched successfully.</em></p></article><nav class="pagenav"><span></span><a href="index.html">index</a><span></span></nav>
+</main>
+<footer class="colophon">
+  <div class="ticks" aria-hidden="true"></div>
+  <p>Charted from <a href="https://github.com/GreatTyrion/tech-radar">watched release feeds and topic searches</a>. Every item links to its source.</p>
+</footer>
+</body>
+</html>

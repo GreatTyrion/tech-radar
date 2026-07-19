@@ -1,0 +1,8 @@
+# Local-only files — the public repo carries only digests/, docs/, and this file
+ARCHITECTURE.md
+idea.md
+PLAN.md
+watchlist.yaml
+.claude/
+scripts/
+.DS_Store
