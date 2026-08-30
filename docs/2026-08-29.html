@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tech Radar</title>
+<title>Tech Radar — 2026-08-29</title>
 <meta name="description" content="Personal tech-update digests: GIS, data pipelines, orchestration, web stacks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,12 +61,7 @@
 <h2>Worth knowing</h2>
 <h3><span class="src">github.blog</span>npm 12 blocks install scripts by default</h3>
 <p>Worth surfacing if your JS toolchain has not moved yet: since npm 12, <strong>dependency <code>preinstall</code>/<code>install</code>/<code>postinstall</code> scripts do not run unless a project explicitly allows them</strong>, and that includes implicit <code>node-gyp</code> builds for any package with a <code>binding.gyp</code>, even with no declared script. This will break CI for native-dependency builds until you run <code>npm install-scripts approve</code> and <code>npm rebuild</code>. The urgency behind it is the CHAINDROP worm that compromised the <code>keyv</code> maintainer's account earlier this month and self-propagated to 400+ packages totalling well over a billion monthly downloads — it spread specifically through a <code>preinstall</code> hook. The migration path has been available behind warnings since npm 11.16.0, so upgrading is mostly a matter of recording approvals before the CI break rather than after.</p>
-<p class="source">📎 <a href="https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/">Upcoming breaking changes for npm v12</a></p></article><section class="archive"><h2>Earlier digests</h2><ul>
-<li><span class="d">2026-08-16</span><a href="2026-08-16.html">digest</a> <span class="hl">— PostgreSQL patches 28 CVEs (with manual reindex steps), Argo CD fixes secret-mask leaks, PostGIS 3.7 beta2 hardens extension SQL, Terraform 1.16 RC</span></li>
-<li><span class="d">2026-08-05</span><a href="2026-08-05.html">digest</a> <span class="hl">— uv 0.12 breaking release, Argo CD 3.5 bundles Helm 4 and React 19, Hasura patches an mssql authz bug, commercial SAR goes operational at the NRO</span></li>
-<li><span class="d">2026-07-27</span><a href="2026-07-27.html">digest</a> <span class="hl">— Ruff 0.16 enables 413 rules by default, NISAR L-band data goes public, PostGIS 3.7 beta, TiTiler moves to httpx2</span></li>
-<li><span class="d">2026-07-19</span><a href="2026-07-19.html">digest</a> <span class="hl">— Strawberry SSE subscriptions, stac-fastapi-pgstac 6.3 nested catalogs, Hasura JWT hardening, TypeScript 7.0 goes native</span></li>
-</ul></section>
+<p class="source">📎 <a href="https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/">Upcoming breaking changes for npm v12</a></p></article><nav class="pagenav"><span></span><a href="index.html">index</a><a href="2026-08-16.html">2026-08-16 →</a></nav>
 </main>
 <footer class="colophon">
   <div class="ticks" aria-hidden="true"></div>
